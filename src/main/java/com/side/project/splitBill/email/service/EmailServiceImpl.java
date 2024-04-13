@@ -15,9 +15,10 @@ public class EmailServiceImpl implements EmailService{
     private final JavaMailSender sender;
 
     @Override
-    public boolean emailAuthentication(EmailAthenticationDTO dto) {
+    public boolean emailAuthenticationSend(EmailAthenticationDTO dto) {
 
         int authenticationNumber = Utils.createAuthenticationNumber();
+        dto.setAthenticationNumber(authenticationNumber);
 
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("no-rely@splitBill.com");
@@ -26,6 +27,7 @@ public class EmailServiceImpl implements EmailService{
         message.setText("테스트 인증번호 : " + authenticationNumber);
 
         try{
+            // TODO : db에 인증번호 저장 로직 추가 필요
             sender.send(message);
         } catch (MailException e){
             log.error(e);
