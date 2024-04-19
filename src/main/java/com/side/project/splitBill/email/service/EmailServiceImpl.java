@@ -11,6 +11,8 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import java.util.concurrent.TimeUnit;
+
 @Slf4j
 @RequiredArgsConstructor
 @Service
@@ -35,8 +37,8 @@ public class EmailServiceImpl implements EmailService{
             message.setSubject("[SplitBill] 이메일 인증을 완료해주세요");
             message.setText("테스트 인증번호 : " + authenticationNumber);
 
-            // TODO : db에 인증번호 저장 로직 추가 필요
-            valueOperations.set(dto.getUserEmail(), authenticationNumber.toString());
+            // 3분 내에 인증하도록 Redis 만료시간 설정.
+            valueOperations.set(dto.getUserEmail(), authenticationNumber.toString(), 3, TimeUnit.MINUTES);
 
             sender.send(message);
         } catch (MailException e){
