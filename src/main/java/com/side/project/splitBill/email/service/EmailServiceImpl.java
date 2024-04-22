@@ -24,7 +24,7 @@ public class EmailServiceImpl implements EmailService{
     private ValueOperations<String, String> valueOperations;
 
     @Override
-    public boolean emailAuthenticationSend(EmailAthenticationDTO dto) {
+    public boolean emailAuthenticationSendV1(EmailAthenticationDTO dto) {
 
         Integer authenticationNumber = Utils.createAuthenticationNumber();
         dto.setAthenticationNumber(authenticationNumber);
@@ -46,6 +46,11 @@ public class EmailServiceImpl implements EmailService{
         }
 
         return true;
+    }
+
+    @Override
+    public boolean emailAuthenticationSendV2(EmailAthenticationDTO dto) {
+        return false;
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.side.project.splitBill.user.controller;
 
+import com.side.project.splitBill.email.dto.EmailAthenticationDTO;
+import com.side.project.splitBill.email.service.EmailService;
 import com.side.project.splitBill.user.dto.UserDTO;
 import com.side.project.splitBill.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -12,19 +14,24 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Slf4j
-@RequestMapping("/v1/user")
+@RequestMapping("/user")
 @RequiredArgsConstructor
 public class UserController {
 
     private final UserService userService;
+    private final EmailService emailService;
 
-    @PostMapping("/regist")
+    @PostMapping("/v1/regist")
     public ResponseEntity userRegist(UserDTO userDTO) {
 
-        UserDTO dto = userService.userRegister(userDTO);
+        EmailAthenticationDTO dto = new EmailAthenticationDTO(userDTO.getEmail(), null);
+        emailService.emailAuthenticationSendV1(dto);
+        userService.userRegister(userDTO);
 
         return new ResponseEntity("인증코드를 발송하였습니다.", HttpStatus.OK);
     }
+
+
 
 
 }

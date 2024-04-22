@@ -17,7 +17,7 @@ public class EmailController {
     @GetMapping("/test/mailsend")
     public ResponseEntity mailTest(EmailAthenticationDTO dto) {
 
-        boolean c = emailService.emailAuthenticationSend(dto);
+        boolean c = emailService.emailAuthenticationSendV1(dto);
 
         return new ResponseEntity(c, HttpStatus.OK);
     }
