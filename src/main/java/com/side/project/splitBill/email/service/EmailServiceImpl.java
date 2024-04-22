@@ -23,7 +23,6 @@ public class EmailServiceImpl implements EmailService{
     @Resource(name = "redisTemplate")
     private ValueOperations<String, String> valueOperations;
 
-
     @Override
     public boolean emailAuthenticationSend(EmailAthenticationDTO dto) {
 
@@ -47,5 +46,10 @@ public class EmailServiceImpl implements EmailService{
         }
 
         return true;
+    }
+
+    @Override
+    public boolean emailAuthentication(EmailAthenticationDTO dto) {
+        return dto.getAthenticationNumber().equals(valueOperations.get(dto.getUserEmail()));
     }
 }

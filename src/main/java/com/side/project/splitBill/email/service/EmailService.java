@@ -5,4 +5,6 @@ import com.side.project.splitBill.email.dto.EmailAthenticationDTO;
 public interface EmailService {
 
     boolean emailAuthenticationSend(EmailAthenticationDTO dto);
+
+    boolean emailAuthentication(EmailAthenticationDTO dto);
 }

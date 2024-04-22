@@ -39,4 +39,11 @@ class EmailServiceImplTest {
 
 
     }
+
+    @Test
+    void emailAuthentication() {
+
+        assertThat("163993").isEqualTo(valueOperations.get("cksgh1565@naver.com"));
+
+    }
 }
