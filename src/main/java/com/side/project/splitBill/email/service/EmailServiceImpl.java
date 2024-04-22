@@ -26,30 +26,33 @@ public class EmailServiceImpl implements EmailService{
     @Override
     public boolean emailAuthenticationSendV1(EmailAthenticationDTO dto) {
 
+        // 인증번호 생성
         Integer authenticationNumber = Utils.createAuthenticationNumber();
         dto.setAthenticationNumber(authenticationNumber);
 
-        try{
-            SimpleMailMessage message = new SimpleMailMessage();
-            message.setFrom("cksgh1565@naver.com");
-            message.setTo(dto.getUserEmail());
-            message.setSubject("[SplitBill] 이메일 인증을 완료해주세요");
-            message.setText("테스트 인증번호 : " + authenticationNumber);
+        // 이메일 데이터 생성
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("cksgh1565@naver.com");
+        message.setTo(dto.getUserEmail());
+        message.setSubject("[SplitBill] 이메일 인증을 완료해주세요");
+        message.setText("테스트 인증번호 : " + authenticationNumber);
 
-            // 3분 내에 인증하도록 Redis 만료시간 설정.
-            valueOperations.set(dto.getUserEmail(), authenticationNumber.toString(), 3, TimeUnit.MINUTES);
+        // 3분 내에 인증하도록 Redis 만료시간 설정.
+        valueOperations.set(dto.getUserEmail(), authenticationNumber.toString(), 3, TimeUnit.MINUTES);
 
-            sender.send(message);
-        } catch (MailException e){
-            log.error(e.getMessage(), e);
-            return false;
-        }
+        // 이메일 발송
+        sender.send(message);
 
         return true;
     }
 
     @Override
-    public boolean emailAuthenticationSendV2(EmailAthenticationDTO dto) {
+    public boolean emailAuthenticationSendV2(String email) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("cksgh1565@naver.com");
+        message.setTo(email);
+        message.setSubject("[SplitBill] 이메일 인증을 완료해주세요");
+        message.setText("테스트 인증번호 : ");
         return false;
     }
 

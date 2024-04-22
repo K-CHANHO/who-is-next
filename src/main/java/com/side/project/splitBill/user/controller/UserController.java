@@ -22,13 +22,21 @@ public class UserController {
     private final EmailService emailService;
 
     @PostMapping("/v1/regist")
-    public ResponseEntity userRegist(UserDTO userDTO) {
+    public ResponseEntity userRegistV1(UserDTO userDTO) {
 
         EmailAthenticationDTO dto = new EmailAthenticationDTO(userDTO.getEmail(), null);
         emailService.emailAuthenticationSendV1(dto);
         userService.userRegister(userDTO);
 
         return new ResponseEntity("인증코드를 발송하였습니다.", HttpStatus.OK);
+    }
+
+    @PostMapping("/v2/regist")
+    public ResponseEntity userRegistV2(UserDTO userDTO) {
+
+        emailService.emailAuthenticationSendV2(userDTO.getEmail());
+
+        return new ResponseEntity(null);
     }
 
 
