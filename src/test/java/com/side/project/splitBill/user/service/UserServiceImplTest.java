@@ -23,15 +23,15 @@ class UserServiceImplTest {
 
     @Test
     void userRegister() {
+
         UserDTO dto = UserDTO.builder()
                 .email("cksgh1565@naver.com")
                 .password("test")
                 .name("차노쓰")
                 .build();
 
-        UserDTO savedDTO = userService.userRegister(dto);
+        boolean isSenened = userService.userRegister(dto);
+        Assertions.assertThat(isSenened).isTrue();
 
-        Optional<UserEntity> byEmail = userRepository.findByEmail("cksgh1565@naver.com");
-        Assertions.assertThat(savedDTO).isEqualTo(UserDTO.toDTO(byEmail.get()));
     }
 }

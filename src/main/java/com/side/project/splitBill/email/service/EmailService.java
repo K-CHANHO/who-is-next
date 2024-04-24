@@ -1,6 +1,7 @@
 package com.side.project.splitBill.email.service;
 
 import com.side.project.splitBill.email.dto.EmailAthenticationDTO;
+import jakarta.mail.MessagingException;
 
 public interface EmailService {
 

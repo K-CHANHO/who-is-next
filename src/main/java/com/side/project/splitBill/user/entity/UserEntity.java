@@ -26,11 +26,11 @@ public class UserEntity {
     public String name;
 
     @Column(nullable = false)
-    @ColumnDefault("N")
+    @ColumnDefault("'N'")
     public String isConnected;
 
     @Column(nullable = false)
-    @ColumnDefault("N")
+    @ColumnDefault("'N'")
     public String isAuthenticated;
 
     @Column

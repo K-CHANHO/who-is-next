@@ -32,7 +32,7 @@ class EmailServiceImplTest {
                 .userEmail("cksgh1565@naver.com")
                 .build();
 
-        assertThat(emailService.emailAuthenticationSend(dto)).isTrue();
+        assertThat(emailService.emailAuthenticationSendV1(dto)).isTrue();
 
         String code = valueOperations.get(dto.getUserEmail());
         assertThat(code).isEqualTo(dto.getAthenticationNumber().toString());

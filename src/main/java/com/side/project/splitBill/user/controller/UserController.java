@@ -8,9 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Slf4j
@@ -21,7 +19,7 @@ public class UserController {
     private final UserService userService;
     private final EmailService emailService;
 
-    @PostMapping("/v1/regist")
+    @PostMapping("/regist/v1")
     public ResponseEntity userRegistV1(UserDTO userDTO) {
 
         EmailAthenticationDTO dto = new EmailAthenticationDTO(userDTO.getEmail(), null);
@@ -31,12 +29,18 @@ public class UserController {
         return new ResponseEntity("인증코드를 발송하였습니다.", HttpStatus.OK);
     }
 
-    @PostMapping("/v2/regist")
+    @PostMapping("/regist/v2")
     public ResponseEntity userRegistV2(UserDTO userDTO) {
 
         emailService.emailAuthenticationSendV2(userDTO.getEmail());
 
         return new ResponseEntity(null);
+    }
+
+    @GetMapping("/regist/auth/{email}")
+    public ResponseEntity userEmailAuth(@PathVariable String email){
+
+        return new ResponseEntity("인증에 성공하였습니다.", HttpStatus.OK);
     }
 
 
