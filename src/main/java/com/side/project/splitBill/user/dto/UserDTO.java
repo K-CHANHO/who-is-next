@@ -12,9 +12,10 @@ public class UserDTO {
     String email;
     String password;
     String name;
-    String isConnected;
+
     String isAuthenticated;
 
+    String isConnected;
     String pairedEmail;
 
     public static UserEntity toEntity(UserDTO dto){

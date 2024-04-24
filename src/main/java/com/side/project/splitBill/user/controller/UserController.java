@@ -1,6 +1,5 @@
 package com.side.project.splitBill.user.controller;
 
-import com.side.project.splitBill.email.dto.EmailAthenticationDTO;
 import com.side.project.splitBill.email.service.EmailService;
 import com.side.project.splitBill.user.dto.UserDTO;
 import com.side.project.splitBill.user.service.UserService;
@@ -19,27 +18,18 @@ public class UserController {
     private final UserService userService;
     private final EmailService emailService;
 
-    @PostMapping("/regist/v1")
+    @PostMapping("/regist")
     public ResponseEntity userRegistV1(UserDTO userDTO) {
 
-        EmailAthenticationDTO dto = new EmailAthenticationDTO(userDTO.getEmail(), null);
-        emailService.emailAuthenticationSendV1(dto);
         userService.userRegister(userDTO);
 
-        return new ResponseEntity("인증코드를 발송하였습니다.", HttpStatus.OK);
-    }
-
-    @PostMapping("/regist/v2")
-    public ResponseEntity userRegistV2(UserDTO userDTO) {
-
-        emailService.emailAuthenticationSendV2(userDTO.getEmail());
-
-        return new ResponseEntity(null);
+        return new ResponseEntity("메일인증을 완료해주세요.", HttpStatus.OK);
     }
 
     @GetMapping("/regist/auth/{email}")
-    public ResponseEntity userEmailAuth(@PathVariable String email){
+    public ResponseEntity userEmailAuth(@PathVariable("email") String email){
 
+        userService.emailAuth(email);
         return new ResponseEntity("인증에 성공하였습니다.", HttpStatus.OK);
     }
 

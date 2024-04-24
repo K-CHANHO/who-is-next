@@ -30,8 +30,7 @@ class UserServiceImplTest {
                 .name("차노쓰")
                 .build();
 
-        boolean isSenened = userService.userRegister(dto);
-        Assertions.assertThat(isSenened).isTrue();
+        userService.userRegister(dto);
 
     }
 }
