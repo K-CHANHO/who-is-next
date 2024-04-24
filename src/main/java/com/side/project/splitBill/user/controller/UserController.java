@@ -33,6 +33,13 @@ public class UserController {
         return new ResponseEntity("인증에 성공하였습니다.", HttpStatus.OK);
     }
 
+    @PostMapping("/login")
+    public ResponseEntity userLogin(UserDTO dto) {
+        boolean isUser = userService.userLogin(dto);
+
+        return new ResponseEntity(isUser, HttpStatus.OK);
+    }
+
 
 
 

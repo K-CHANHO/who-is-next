@@ -5,5 +5,6 @@ import com.side.project.splitBill.user.dto.UserDTO;
 public interface UserService {
     void userRegister(UserDTO dto);
     void emailAuth(String email);
+    boolean userLogin(UserDTO dto);
 
 }

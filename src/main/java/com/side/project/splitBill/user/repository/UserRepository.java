@@ -12,10 +12,6 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, String> {
-
-    boolean existsByEmail(String email);
-    Optional<UserEntity> findByEmail(String mail);
-
     @Modifying
     @Query(value = "update UserEntity " +
             "set isAuthenticated = 'Y' " +
