@@ -19,9 +19,10 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final EmailService emailService;
 
-    @Resource(name = "redisTemplate")
-    private ValueOperations<String, String> valueOperations;
-
+    /**
+     * 회원가입
+     * @param dto
+     */
     @Override
     public void userRegister(UserDTO dto) {
 
@@ -36,6 +37,10 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    /**
+     * 이메일 링크인증
+     * @param email
+     */
     @Override
     public void emailAuth(String email) {
         userRepository.updateAuth(email);
