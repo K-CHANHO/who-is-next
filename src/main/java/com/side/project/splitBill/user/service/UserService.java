@@ -6,5 +6,5 @@ public interface UserService {
 
     void userRegister(UserDTO dto);
 
-    boolean emailAuth(String email);
+    void emailAuth(String email);
 }

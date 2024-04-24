@@ -9,9 +9,11 @@ import jakarta.annotation.Resource;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
@@ -35,13 +37,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean emailAuth(String email) {
-
-        if(valueOperations.get(email).equals("Y")) {
-            valueOperations.getAndDelete(email);
-            return true;
-        }
-
-        return false;
+    public void emailAuth(String email) {
+        userRepository.updateAuth(email);
     }
 }
