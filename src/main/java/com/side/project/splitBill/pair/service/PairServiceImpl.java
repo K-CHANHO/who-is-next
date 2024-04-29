@@ -36,7 +36,15 @@ public class PairServiceImpl implements PairService{
         }
 
         return sb.toString();
+    }
 
+    @Override
+    public void saveSender(PairDTO dto) {
+        // dto에는 pairCode와 codeSender 값만 있음.
+        if ((dto.getPairCode() != null && !dto.getPairCode().isBlank()) &&
+                dto.getCodeSender() != null && !dto.getCodeSender().isBlank()) {
+            pairRepository.save(PairDTO.toEntity(dto));
+        } else throw new RuntimeException("코드와 이메일을 다시 확인해주세요.");
     }
 
     @Override
