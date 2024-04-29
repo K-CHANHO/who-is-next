@@ -1,11 +1,13 @@
 package com.side.project.splitBill.user.entity;
 
 import jakarta.persistence.*;
-import jakarta.persistence.Index;
-import jakarta.persistence.Table;
-import lombok.*;
-import org.apache.naming.factory.SendMailFactory;
-import org.hibernate.annotations.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 @Entity
 @Table(name = "sb_user", indexes = @Index(name = "idx_user", columnList = "email, password"))
